@@ -34,3 +34,17 @@ class PrintedMaterial:
 
     def GetItem(self):
         return ( "\"" + self.title + "\", " + self.author + ", $" + str(self.cost))
+
+    def ConvertToJSON(self):
+        printedMaterial = {}
+        printedMaterial["type"] = self.GetType()
+        printedMaterial["title"] = self.GetTitle()
+        printedMaterial["author"] = self.GetAuthor()
+        printedMaterial["cost"] = self.GetCost()
+        return printedMaterial
+
+    def ParseFromJSON(self, pmJSON):
+        self.type = pmJSON["type"]
+        self.title = pmJSON["title"]
+        self.author = pmJSON["author"]
+        self.cost = pmJSON["cost"]

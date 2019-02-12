@@ -1,24 +1,16 @@
+import json
+
 from PrintedMaterial import PrintedMaterial
 from Book import Book
 from Textbook import Textbook
 from Magazine import Magazine
 from Library import Library
 
+defaultFilePath = "default.json"
+
 lib = Library()
 
-book2 = Book()
-
-book3 = Book()
-book3.SetAuthor("Gogol")
-
-book4 = Textbook("Геология", "Джон Локк", "Геология", 9, 20)
-
-book5 = Magazine("Капкан", "Охота", "10/03/18", 20)
-
-lib.Add(book2)
-lib.Add(book3)
-lib.Add(book4)
-lib.Add(book5)
+lib.ReadFromFile(defaultFilePath, 0)
 
 running = True
 
@@ -30,6 +22,8 @@ while(running):
     print("4. Вывести список всех учебников")
     print("5. Добавить печатное издание в библиотеку")
     print("6. Удалить печатное издание из библиотеки")
+    print("7. Считать из файла")
+    print("8. Записать в файл")
     print("0. Выход. ")
 
     key = input("Ваше действие: ")
@@ -75,9 +69,18 @@ while(running):
         item = int(input("Введите номер издания для удаления: "))
         lib.Remove(item)
         print("Издание удалено из библиотеки.")
-    
+
+    elif (key == "7"):
+        file = str(input("Введите имя файла: "))
+        isBinary = bool(input("Считать бинарно(1 - да, 0 - нет)? "))
+
+        lib.ReadFromFile(file, isBinary)
+
+    elif (key == "8"):
+        file = str(input("Введите имя файла: "))
+        isBinary = bool(input("Записать бинарно(1 - да, 0 - нет)? "))
+
+        lib.WriteToFile(file, isBinary)
+
     elif (key == "0"):
         running = False
-    
-
-    

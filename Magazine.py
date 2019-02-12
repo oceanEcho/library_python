@@ -25,3 +25,19 @@ class Magazine(PrintedMaterial):
 
     def GetItem(self):
         return ( "Журнал \"" + self.title + "\", " + self.theme + ", " + self.date + ", $" + str(self.cost))
+
+    def ConvertToJSON(self):
+        printedMaterial = {}
+        printedMaterial["type"] = self.GetType()
+        printedMaterial["title"] = self.GetTitle()
+        printedMaterial["cost"] = self.GetCost()
+        printedMaterial["theme"] = self.GetTheme()
+        printedMaterial["date"] = self.GetDate()
+        return printedMaterial
+
+    def ParseFromJSON(self, pmJSON):
+        self.type = pmJSON["type"]
+        self.title = pmJSON["title"]
+        self.cost = pmJSON["cost"]
+        self.style = pmJSON["theme"]
+        self.style = pmJSON["subject"]

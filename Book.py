@@ -17,3 +17,19 @@ class Book(PrintedMaterial):
 
     def GetItem(self):
         return ( "Книга \"" + self.title + "\", " + self.author + ", " + self.style + ", $" + str(self.cost))
+
+    def ConvertToJSON(self):
+        printedMaterial = {}
+        printedMaterial["type"] = self.GetType()
+        printedMaterial["title"] = self.GetTitle()
+        printedMaterial["author"] = self.GetAuthor()
+        printedMaterial["cost"] = self.GetCost()
+        printedMaterial["style"] = self.GetStyle()
+        return printedMaterial
+
+    def ParseFromJSON(self, pmJSON):
+        self.type = pmJSON["type"]
+        self.title = pmJSON["title"]
+        self.author = pmJSON["author"]
+        self.cost = pmJSON["cost"]
+        self.style = pmJSON["style"]

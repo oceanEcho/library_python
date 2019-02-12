@@ -1,3 +1,6 @@
+import json
+import pickle
+
 from PrintedMaterial import PrintedMaterial
 from Book import Book
 from Textbook import Textbook
@@ -39,3 +42,35 @@ class Library():
             if (item.GetType() == "magazine"):
                 print(str(id) + ". " + item.GetItem())
             id += 1
+
+    def WriteToFile(self, filePath, isBinary):
+        convertedStorage = []
+        if isBinary:
+            for item in self.storage:
+                convertedStorage.append(item.ConvertToJSON())
+            with open(filePath, "wb") as fileHandler:
+                pickle.dump(convertedStorage, fileHandler)
+        else:
+            for item in self.storage:
+                convertedStorage.append(item.ConvertToJSON())
+            with open(filePath, "w") as fileHandler:
+                json.dump(convertedStorage, fileHandler)
+
+
+    def ReadFromFile(self, filePath, isBinary):
+        self.storage = []
+        if isBinary:
+            with open(filePath, "rb") as fileHandler:
+                convertedStorage = pickle.load(fileHandler)
+        else:
+            with open(filePath, "r") as fileHandler:
+                convertedStorage = json.loads(fileHandler.read())
+
+        for item in convertedStorage:
+            if item["type"] == "book":
+                newBook = Book(item["title"], item["author"], item["style"], item["cost"])
+            if item["type"] == "textbook":
+                newBook = Textbook(item["title"], item["author"], item["subject"], item["stage"], item["cost"])
+            if item["type"] == "magazine":
+                newBook = Magazine(item["title"], item["theme"], item["date"], item["cost"])
+            self.storage.append(newBook)
