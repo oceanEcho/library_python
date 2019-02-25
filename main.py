@@ -72,14 +72,22 @@ while(running):
 
     elif (key == "7"):
         file = str(input("Введите имя файла: "))
-        isBinary = bool(input("Считать бинарно(1 - да, 0 - нет)? "))
-
+        isBinary = input("Считать бинарно(1 - да, 0 - нет)? ")
+        print(int(isBinary))
+        if int(isBinary) == 0:
+            isBinary = False
+        else:
+            isBinary = True
         lib.ReadFromFile(file, isBinary)
 
     elif (key == "8"):
         file = str(input("Введите имя файла: "))
-        isBinary = bool(input("Записать бинарно(1 - да, 0 - нет)? "))
-
+        isBinary = input("Записать бинарно(1 - да, 0 - нет)? ")
+        print(int(isBinary))
+        if int(isBinary) == 0:
+            isBinary = False
+        else:
+            isBinary = True
         lib.WriteToFile(file, isBinary)
 
     elif (key == "0"):
